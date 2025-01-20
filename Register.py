@@ -7,6 +7,7 @@ from tkinter import ttk, messagebox
 import tkinter as tk
 import base64
 import subprocess
+import shutil
 import os
 
 def register_user(username, password, repassword):
@@ -28,6 +29,7 @@ def register_user(username, password, repassword):
         password_b64bytes = base64.b64encode(password)
         f.write(password_b64bytes)
     messagebox.showinfo("注册成功", "注册成功！")
+    shutil.copy("Data/user/data.json", "Users/" + username)
     subprocess.Popen(["python", "Launcher.py"])
     root.destroy()
 

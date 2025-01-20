@@ -4,7 +4,10 @@ from tkinter import messagebox, filedialog
 import os
 import random
 import shutil
+import json
 import sys
+
+os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "1"
 
 try:
     import subprocess
@@ -54,7 +57,13 @@ themes = {
     },
 }
 
-current_theme = "默认主题"
+try:
+    with open("Users/" + sys.argv[2] + "/data.json", "r", encoding="utf-8") as f:
+        userdata = json.loads(f.read())
+except IndexError:
+    sys.exit(0)
+
+current_theme = userdata["theme"]
 
 # 切换主题的函数
 def switch_theme(theme_name):
@@ -101,6 +110,12 @@ def update_button_images(images_dir):
     photo2 = ImageTk.PhotoImage(iconsett)
     Menubutton_sett.config(image=photo2)
     Menubutton_sett.image = photo2
+
+def save_theme():
+    global userdata, current_theme
+    userdata["theme"] = current_theme
+    with open("Users/" + sys.argv[2] + "/data.json", "w", encoding="utf-8") as f:
+        json.dump(userdata, f, ensure_ascii=False)
 
 def update_tip_text():
     global tip_index
@@ -187,12 +202,11 @@ def turn_page(mode):
 def go():
     try:
         selected = gameList.curselection()
-        if not selected:
-            raise ValueError("还没有选中任何游戏！")
+        assert selected
         game = games[selected[0]]
         run_Game(game)
     except Exception as e:
-        messagebox.showerror("Error", str(e))
+        messagebox.showerror("Error", "还没有选中任何游戏！")
 
 def change_menu():
     global menu
@@ -209,6 +223,7 @@ def change_menu():
         themeComboBox.place_forget()
         gamelistLabel.place_forget()
         updateGamesListButton.place_forget()
+        saveThemesButton.place_forget()
         usernameLabel.place_forget()
     if menu == 1:
         titleLabel.place_forget()
@@ -222,6 +237,7 @@ def change_menu():
         usernameLabel.place_forget()
         zhuti.place(x=180, y=10)
         themeComboBox.place(x=180, y=80)
+        saveThemesButton.place(x=450, y=80)
         gamelistLabel.place(x=180, y=120)
         updateGamesListButton.place(x=180, y=190)
     if menu == 2:
@@ -237,6 +253,7 @@ def change_menu():
         themeComboBox.place_forget()
         gamelistLabel.place_forget()
         updateGamesListButton.place_forget()
+        saveThemesButton.place_forget()
         usernameLabel.place(x=180, y=10)
     root.after(100, change_menu)
 
@@ -321,10 +338,13 @@ zhuti.place_forget()
 
 var = tk.StringVar()
 themeComboBox = ttk.Combobox(root, textvariable=var, value=("默认主题", "多彩主题", "黑夜主题"))
-themeComboBox.current(0)
+themeComboBox.current(["默认主题", "多彩主题", "黑夜主题"].index(current_theme))
 themeComboBox.configure(font=("Microsoft YaHei", 15))
 themeComboBox.bind("<<ComboboxSelected>>", lambda event: switch_theme(var.get()))
 themeComboBox.place_forget()
+
+saveThemesButton = ttk.Button(root, text="保存", command=save_theme)
+saveThemesButton.place_forget()
 
 gamelistLabel = tk.Label(root, text="游戏列表", font=("Microsoft YaHei", 28, "bold"), bg="white")
 gamelistLabel.place_forget()
@@ -358,5 +378,7 @@ Menubutton_sett.place(x=0, y=60)
 
 for item in games:
     gameList.insert(tk.END, item)
+
+switch_theme(current_theme)
 
 root.mainloop()
