@@ -214,10 +214,10 @@ def change_menu():
         titleLabel.place(x=180, y=10)
         gameList.place(x=180, y=70)
         lastPageButton.place(x=180, y=500)
-        nextPageButton.place(x=328, y=500)
-        runButton.place(x=490, y=454)
-        deleteButton.place(x=490, y=390)
-        addButton.place(x=490, y=327)
+        nextPageButton.place(x=332, y=500)
+        runButton.place(x=480, y=444)
+        deleteButton.place(x=480, y=395)
+        addButton.place(x=480, y=347)
         tip_label.place(x=480, y=90)
         zhuti.place_forget()
         themeComboBox.place_forget()
@@ -297,7 +297,7 @@ root.config(bg="white")
 root.option_add("*TCombobox*Listbox.font", ("Microsoft YaHei", 15))
 
 style = ttk.Style()
-style.configure("TButton", font=("Microsoft YaHei", 15))
+style.configure("TButton", font=("Microsoft YaHei", 15), bg="white")
 
 games = get_Games()
 topage = 0
@@ -311,27 +311,23 @@ titleLabel.place(x=180, y=10)
 gameList = tk.Listbox(root, height=13, font=("Microsoft YaHei", 18), bg="white", width=20)
 gameList.place(x=180, y=70)
 
-lastPageButton = tk.Button(root, text="上一页", command=lambda: turn_page(1), width=18, bg="white")
+lastPageButton = ttk.Button(root, text="上一页", command=lambda: turn_page(1), width=10)
 lastPageButton.place(x=180, y=500)
 
-nextPageButton = tk.Button(root, text="下一页", command=lambda: turn_page(0), width=18, bg="white")
-nextPageButton.place(x=328, y=500)
+nextPageButton = ttk.Button(root, text="下一页", command=lambda: turn_page(0), width=10)
+nextPageButton.place(x=332, y=500)
 
-runButton = tk.Button(root, text="启动！", font=("Microsoft YaHei", 15),
-                      command=go, width=21, height=2, activebackground="#D7E6F0", bg="white")
-runButton.place(x=490, y=454)
+runButton = ttk.Button(root, text="\n启动！\n", command=go, width=21)
+runButton.place(x=480, y=444)
 
-deleteButton = tk.Button(root, text="删除游戏", font=("Microsoft YaHei", 15),
-                      command=delete_Game, width=21, height=1, activebackground="#D7E6F0", bg="white")
-deleteButton.place(x=490, y=390)
+deleteButton = ttk.Button(root, text="删除游戏", command=delete_Game, width=21)
+deleteButton.place(x=480, y=395)
 
-frame = tk.Frame(root, width = 160, height = 9999, highlightbackground="white", highlightcolor="white", highlightthickness=11)
+frame = tk.Frame(root, width=160, height=9999, highlightbackground="white", highlightcolor="white", highlightthickness=11)
 frame.pack(side = tk.LEFT, fill = tk.Y)
 
-addButton = tk.Button(root, text="添加游戏", font=("Microsoft YaHei", 15),
-                      command=add_Game, width=21, height=1, activebackground="#D7E6F0", bg="white")
-addButton.pack()
-addButton.place(x=490, y=327)
+addButton = ttk.Button(root, text="添加游戏", command=add_Game, width=21)
+addButton.place(x=480, y=347)
 
 zhuti = tk.Label(root, text="主题", font=("Microsoft YaHei", 28, "bold"), bg="white")
 zhuti.place_forget()
