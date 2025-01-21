@@ -35,6 +35,10 @@ root.title('登录')
 root.geometry("350x120")
 root.config(bg="white")
 
+try:
+    os.mkdir("Users")
+except FileExistsError:
+    pass
 users = get_users()
 usernames = []
 for i in users.keys():
