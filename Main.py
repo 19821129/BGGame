@@ -25,6 +25,7 @@ except:
     os.system('pip install pillow')
 
 gamepath = os.path.join(os.path.dirname(__file__ ) + "\\Games")
+data = os.path.join(os.path.dirname(__file__ ) + "\\Data")
 
 tips = [
     "点击“启动！”\n来运行游戏！",
@@ -101,17 +102,17 @@ def switch_theme(theme_name):
 def update_button_images(images):
     global Menubutton_game, Menubutton_user, Menubutton_sett
     # 更新游戏按钮图片
-    icongame = Image.open(os.path.join('Data/images/game' + images + '.png'))
+    icongame = Image.open(os.path.join(data + r'/images/game' + images + '.png'))
     photo = ImageTk.PhotoImage(icongame)
     Menubutton_game.config(image=photo)
     Menubutton_game.image = photo
     # 更新用户按钮图片
-    iconuser = Image.open(os.path.join('Data/images/user' + images + '.png'))
+    iconuser = Image.open(os.path.join(data + r'/images/user' + images + '.png'))
     photo1 = ImageTk.PhotoImage(iconuser)
     Menubutton_user.config(image=photo1)
     Menubutton_user.image = photo1
     # 更新设置按钮图片
-    iconsett = Image.open(os.path.join('Data/images/set' + images + '.png'))
+    iconsett = Image.open(os.path.join(data + r'/images/set' + images + '.png'))
     photo2 = ImageTk.PhotoImage(iconsett)
     Menubutton_sett.config(image=photo2)
     Menubutton_sett.image = photo2
@@ -282,11 +283,11 @@ def themea():
     Menubutton_game.place_forget()
     Menubutton_user.place_forget()
     Menubutton_sett.place_forget()
-    icongame = Image.open(r"Data/images/game2.png")
+    icongame = Image.open(data + r"/images/game2.png")
     photo = ImageTk.PhotoImage(icongame)
-    iconuser = Image.open(r"Data/images/user2.png")
+    iconuser = Image.open(data + r"/images/user2.png")
     photo1 = ImageTk.PhotoImage(iconuser)
-    iconsett = Image.open(r"Data/images/set2.png")
+    iconsett = Image.open(data + r"/images/set2.png")
     photo2 = ImageTk.PhotoImage(iconsett)
 
 try:
@@ -361,17 +362,17 @@ tip_label.pack()
 tip_label.place(x=480, y=90)
 update_tip_text()
 
-icongame = Image.open(r"Data/images/game2.png")
+icongame = Image.open(data + r"/images/game2.png")
 photo = ImageTk.PhotoImage(icongame)
 Menubutton_game = ttk.Button(frame, image=photo, command=lambda: menuu(0))
 Menubutton_game.image = photo
 Menubutton_game.place(x=0, y=0)
-iconuser = Image.open(r"Data/images/user2.png")
+iconuser = Image.open(data + r"/images/user2.png")
 photo1 = ImageTk.PhotoImage(iconuser)
 Menubutton_user = ttk.Button(frame, image=photo1, command=lambda: menuu(2))
 Menubutton_user.image = photo
 Menubutton_user.place(x=0, y=120)
-iconsett = Image.open(r"Data/images/set2.png")
+iconsett = Image.open(data + r"/images/set2.png")
 photo2 = ImageTk.PhotoImage(iconsett)
 Menubutton_sett = ttk.Button(frame, image=photo2, command=lambda: menuu(1))
 Menubutton_sett.image = photo
