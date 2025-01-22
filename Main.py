@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+"""
+Create on Wed Jan 15 21:15:36 2025
+@author: fangg
+"""
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox, filedialog
@@ -37,7 +42,7 @@ themes = {
         'font': ("Microsoft YaHei", 18),
         'button_bg': 'white',
         'button_fg': 'black',
-        'images_dir': 'images2'
+        'images': '2'
     },
     '多彩主题': {
         'bg_color': 'white',
@@ -45,7 +50,7 @@ themes = {
         'font': ("Microsoft YaHei", 18),
         'button_bg': 'white',
         'button_fg': 'black',
-        'images_dir': 'images'
+        'images': ''
     },
     '黑夜主题': {
         'bg_color': 'black',
@@ -53,7 +58,7 @@ themes = {
         'font': ("Microsoft YaHei", 18),
         'button_bg': 'black',
         'button_fg': 'white',
-        'images_dir': 'images2'
+        'images': '2'
     },
 }
 
@@ -90,23 +95,23 @@ def switch_theme(theme_name):
     titleLabel.place(x=180, y=10)
     tip_label.place(x=480, y=90)
     # 更新按钮图片
-    update_button_images(theme['images_dir'])
+    update_button_images(theme['images'])
 
 # 更新按钮图片的函数
-def update_button_images(images_dir):
+def update_button_images(images):
     global Menubutton_game, Menubutton_user, Menubutton_sett
     # 更新游戏按钮图片
-    icongame = Image.open(os.path.join(images_dir, 'game.png'))
+    icongame = Image.open(os.path.join('Data/images/game' + images + '.png'))
     photo = ImageTk.PhotoImage(icongame)
     Menubutton_game.config(image=photo)
     Menubutton_game.image = photo
     # 更新用户按钮图片
-    iconuser = Image.open(os.path.join(images_dir, 'user.png'))
+    iconuser = Image.open(os.path.join('Data/images/user' + images + '.png'))
     photo1 = ImageTk.PhotoImage(iconuser)
     Menubutton_user.config(image=photo1)
     Menubutton_user.image = photo1
     # 更新设置按钮图片
-    iconsett = Image.open(os.path.join(images_dir, 'set.png'))
+    iconsett = Image.open(os.path.join('Data/images/set' + images + '.png'))
     photo2 = ImageTk.PhotoImage(iconsett)
     Menubutton_sett.config(image=photo2)
     Menubutton_sett.image = photo2
@@ -277,11 +282,11 @@ def themea():
     Menubutton_game.place_forget()
     Menubutton_user.place_forget()
     Menubutton_sett.place_forget()
-    icongame = Image.open(r"images2/game.png")
+    icongame = Image.open(r"Data/images/game2.png")
     photo = ImageTk.PhotoImage(icongame)
-    iconuser = Image.open(r"images2/user.png")
+    iconuser = Image.open(r"Data/images/user2.png")
     photo1 = ImageTk.PhotoImage(iconuser)
-    iconsett = Image.open(r"images2/set.png")
+    iconsett = Image.open(r"Data/images/set2.png")
     photo2 = ImageTk.PhotoImage(iconsett)
 
 try:
@@ -356,17 +361,17 @@ tip_label.pack()
 tip_label.place(x=480, y=90)
 update_tip_text()
 
-icongame = Image.open(r"images2/game.png")
+icongame = Image.open(r"Data/images/game2.png")
 photo = ImageTk.PhotoImage(icongame)
 Menubutton_game = ttk.Button(frame, image=photo, command=lambda: menuu(0))
 Menubutton_game.image = photo
 Menubutton_game.place(x=0, y=0)
-iconuser = Image.open(r"images2/user.png")
+iconuser = Image.open(r"Data/images/user2.png")
 photo1 = ImageTk.PhotoImage(iconuser)
 Menubutton_user = ttk.Button(frame, image=photo1, command=lambda: menuu(2))
 Menubutton_user.image = photo
 Menubutton_user.place(x=0, y=120)
-iconsett = Image.open(r"images2/set.png")
+iconsett = Image.open(r"Data/images/set2.png")
 photo2 = ImageTk.PhotoImage(iconsett)
 Menubutton_sett = ttk.Button(frame, image=photo2, command=lambda: menuu(1))
 Menubutton_sett.image = photo

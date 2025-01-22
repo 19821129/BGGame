@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Create on Mon 1月 20 09:29:56 2025
+Create on Mon Jan 20 09:29:56 2025
 @author: fangg
 """
 import tkinter as tk
