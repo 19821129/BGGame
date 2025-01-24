@@ -74,7 +74,7 @@ current_theme = userdata["theme"]
 # 切换主题的函数
 def switch_theme(theme_name):
     global current_theme
-    global titleLabel, gamelistLabel, tip_label, zhuti
+    global titleLabel, gamelistLabel, tip_label, zhuti, usernameLabel
     current_theme = theme_name
     theme = themes[theme_name]
     root.config(bg=theme['bg_color'])
@@ -82,17 +82,20 @@ def switch_theme(theme_name):
     gamelistLabel.place_forget()
     tip_label.place_forget()
     zhuti.place_forget()
+    usernameLabel.place_forget()
 
     if current_theme == "黑夜主题":
         titleLabel = tk.Label(root, text="BGGame Box", font=("Microsoft YaHei", 28, "bold"), bg="black", fg="white")
         gamelistLabel = tk.Label(root, text="游戏列表", font=("Microsoft YaHei", 28, "bold"), bg="black", fg="white")
         tip_label = tk.Label(root, text="", font=("Microsoft YaHei", 18), bg="black", fg="white")
         zhuti = tk.Label(root, text="主题", font=("Microsoft YaHei", 28, "bold"), bg="black", fg="white")
+        usernameLabel = tk.Label(root, text=sys.argv[2], font=("Microsoft YaHei", 28, "bold"), bg="black", fg="white")
     else:
         titleLabel = tk.Label(root, text="BGGame Box", font=("Microsoft YaHei", 28, "bold"), bg="white", fg="black")
         gamelistLabel = tk.Label(root, text="游戏列表", font=("Microsoft YaHei", 28, "bold"), bg="white", fg="black")
         tip_label = tk.Label(root, text="", font=("Microsoft YaHei", 18), bg="white", fg="black")
         zhuti = tk.Label(root, text="主题", font=("Microsoft YaHei", 28, "bold"), bg="white", fg="black")
+        usernameLabel = tk.Label(root, text=sys.argv[2], font=("Microsoft YaHei", 28, "bold"), bg="white", fg="black")
     titleLabel.place(x=180, y=10)
     tip_label.place(x=480, y=90)
     # 更新按钮图片
@@ -214,6 +217,16 @@ def go():
     except Exception as e:
         messagebox.showerror("Error", "还没有选中任何游戏！")
 
+def change_user():
+    subprocess.Popen(["python", "Launcher.py"])
+    root.destroy()
+
+def return_Default():
+    result = messagebox.askokcancel(title='BGGame Launcher',
+                                    message='确定将所有设置更改为默认值吗？\n更改后可能需要重新配置。')
+    if result:
+        shutil.copy("Data/user/data.json", "Users/" + sys.argv[2])
+
 def change_menu():
     global menu
     if menu == 0:
@@ -231,6 +244,8 @@ def change_menu():
         updateGamesListButton.place_forget()
         saveThemesButton.place_forget()
         usernameLabel.place_forget()
+        changeUserButton.place_forget()
+        ReturnDefaultButton.place_forget()
     if menu == 1:
         titleLabel.place_forget()
         gameList.place_forget()
@@ -241,11 +256,13 @@ def change_menu():
         addButton.place_forget()
         tip_label.place_forget()
         usernameLabel.place_forget()
+        changeUserButton.place_forget()
         zhuti.place(x=180, y=10)
         themeComboBox.place(x=180, y=80)
         saveThemesButton.place(x=450, y=80)
         gamelistLabel.place(x=180, y=120)
         updateGamesListButton.place(x=180, y=190)
+        ReturnDefaultButton.place(x=180, y=500)
     if menu == 2:
         titleLabel.place_forget()
         gameList.place_forget()
@@ -260,7 +277,9 @@ def change_menu():
         gamelistLabel.place_forget()
         updateGamesListButton.place_forget()
         saveThemesButton.place_forget()
+        ReturnDefaultButton.place_forget()
         usernameLabel.place(x=180, y=10)
+        changeUserButton.place(x=180, y=80)
     root.after(100, change_menu)
 
 def menuu(a):
@@ -356,6 +375,12 @@ usernameLabel.place_forget()
 
 updateGamesListButton = ttk.Button(root, text="更新游戏列表", command=update_Games)
 updateGamesListButton.place_forget()
+
+changeUserButton = ttk.Button(root, text="切换用户", command=change_user)
+changeUserButton.place_forget()
+
+ReturnDefaultButton = ttk.Button(root, text="更改为默认值", command=return_Default)
+ReturnDefaultButton.place_forget()
 
 tip_label = tk.Label(root, text="", font=("Microsoft YaHei", 18), bg="white")
 tip_label.pack()

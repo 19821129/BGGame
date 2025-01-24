@@ -1,5 +1,6 @@
 import random
 import pygame
+from pygame import KMOD_SHIFT
 from pygame.locals import KEYDOWN,K_LEFT,K_RIGHT,K_UP,K_DOWN,K_SPACE
 import pickle,os
 
@@ -109,14 +110,13 @@ class Panel(object):
                 self.moving_block.rect_arr=new_arr
 
     def move_block(self):
-        if self.moving_block is None: create_move_block()
+        if self.moving_block is None: self.create_move_block()
         if self.moving_block.can_move(0,1) and not self.check_overlap(0,1): 
             self.moving_block.move(0,1)
             return 1
         else:
             self.add_block(self.moving_block)
             self.check_clear()
-
             for rect_info in self.rect_arr:
                 if rect_info.y<0: return 9 
             self.create_move_block()
